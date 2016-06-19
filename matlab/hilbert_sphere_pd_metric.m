@@ -4,7 +4,7 @@ function d = hilbert_sphere_pd_metric(pd1,pd2,params)
 %%by pd1, pd2.
 if(nargin<3)
     sig = 0.2;
-    x1 = 0:0.03:6; x2 = 0:.03:6;
+    x1 = 0:0.2:20; x2 = 0:.2:20;
 else
     sig = params.sig;
     x1 = params.x1;
