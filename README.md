@@ -8,7 +8,7 @@ Matlab code to compute an extremely efficient metric between topological persist
 
 >Bibtex:
 ```
-@InProceedings{Anirudh_CVPRW2016,
+@InProceedings{AnirudhCVPRW2016,
 author={Anirudh, Rushil and Venkataraman, Vinay and Ramamurthy, Karthikeyan Natesan and Turaga, Pavan},
 title={A Riemannian Framework for Statistical Analysis of Topological Persistence Diagrams},
 booktitle={IEEE Conference on Computer Vision and Pattern Recognition Workshops},
