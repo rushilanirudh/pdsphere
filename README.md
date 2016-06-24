@@ -6,3 +6,13 @@ Matlab code to compute an extremely efficient metric between topological persist
 *A Riemannian Framework for Statistical Analysis of Topological Persistence Diagrams.*
 [arXiv preprint arXiv:1605.08912](http://arxiv.org/abs/1605.08912)., 2016. 
 
+>Bibtex:
+```
+@InProceedings{Anirudh_CVPRW2016,
+author={Anirudh, Rushil and Venkataraman, Vinay and Ramamurthy, Karthikeyan Natesan and Turaga, Pavan},
+title={A Riemannian Framework for Statistical Analysis of Topological Persistence Diagrams},
+booktitle={IEEE Conference on Computer Vision and Pattern Recognition Workshops},
+month = {June},
+year = {2016}
+}
+```
