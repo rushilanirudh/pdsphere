@@ -8,6 +8,7 @@ from scipy.stats.distributions import norm
 from numpy import linalg as LA
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from scipy.stats import gaussian_kde
+from sphere_geometry import rdist,exp_map,log_map
 
 def generate(data_length, odes, state, parameters):
     data = np.zeros([state.shape[0], data_length])
@@ -70,13 +71,18 @@ def persDiag2heatMap(data,sig):
 def mapHeatMap2Sphere(data):
 	a = data
 	b = np.divide(a, LA.norm(a))
-	print LA.norm(b)
 	return b
 
 #---------------------------------------------------------------------------#
 data = np.random.random((100,2))
 f = persDiag2heatMap(data,0.2)
 mapHeatMap2Sphere(data)
+
+s1 = mapHeatMap2Sphere(np.random.rand(1, 100))
+s2 = mapHeatMap2Sphere(np.random.rand(1, 100))
+vec = log_map(s1,s2)
+s2_hat = exp_map(s1, vec, 1)
+
 
 
 
