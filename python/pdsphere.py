@@ -2,9 +2,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pylab
-import scipy;
-
+import scipy
+from weighted_kde import gaussian_kde as weighted_gaussian_kde
 from scipy.stats.distributions import norm
+
 from numpy import linalg as LA
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from scipy.stats import gaussian_kde
@@ -51,22 +52,28 @@ def persDiag2heatMap(data,sig):
 	m1, m2 = data[:,0], data[:,1]
 	xmin, xmax = min(m1), max(m1)
 	ymin, ymax = min(m2), max(m2)
+	weights = np.ones((1, 100))
+	weights[0,60] = 20;
+	weights /= np.sum(weights)
+
 	x, y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
 	positions = np.vstack([x.ravel(), y.ravel()])
 	values = np.vstack([m1, m2])
-	kde = gaussian_kde(values,bw_method=sig)
-	f = kde(positions)
-	# fig = plt.figure()
-	# ax = fig.gca()
-	# ax.set_xlim(xmin, xmax)
-	# ax.set_ylim(ymin, ymax)
-	# cfset = ax.contourf(x, y, f, cmap='Blues')
-	# cset = ax.contour(x, y, f, colors='k')
-	# ax.clabel(cset, inline=1, fontsize=10)
-	# ax.set_xlabel('Y1')
-	# ax.set_ylabel('Y0')
-	# plt.show()
-	return f
+	#pdf = gaussian_kde(values,bw_method=sig)
+	pdf = weighted_gaussian_kde(values,bw_method = sig,weights = weights)
+	z = pdf(positions)
+	f = np.reshape(z, x.shape)
+	fig = plt.figure()
+ 	ax = fig.gca()
+	ax.set_xlim(xmin, xmax)
+ 	ax.set_ylim(ymin, ymax)
+ 	cfset = ax.contourf(x, y, f, cmap='Blues')
+ 	cset = ax.contour(x, y, f, colors='k')
+ 	ax.clabel(cset, inline=1, fontsize=10)
+ 	ax.set_xlabel('Y1')
+ 	ax.set_ylabel('Y0')
+ 	plt.show()
+	return z
 
 def mapHeatMap2Sphere(data):
 	a = data
@@ -74,12 +81,14 @@ def mapHeatMap2Sphere(data):
 	return b
 
 #---------------------------------------------------------------------------#
+np.random.seed(0)
 data = np.random.random((100,2))
-f = persDiag2heatMap(data,0.2)
+f = persDiag2heatMap(data,.1)
 mapHeatMap2Sphere(data)
 
 s1 = mapHeatMap2Sphere(np.random.rand(1, 100))
 s2 = mapHeatMap2Sphere(np.random.rand(1, 100))
+
 vec = log_map(s1,s2)
 s2_hat = exp_map(s1, vec, 1)
 
