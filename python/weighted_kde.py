@@ -11,7 +11,9 @@ class gaussian_kde(object):
     includes automatic bandwidth determination.  The estimation works best for
     a unimodal distribution; bimodal or multi-modal distributions tend to be
     oversmoothed.
-
+    ********************************************************************************************
+    code obtained form: https://gist.github.com/tillahoffmann/f844bce2ec264c1c8cb5#file-weighted_kde-ipynb
+    ********************************************************************************************
     Parameters
     ----------
     dataset : array_like
